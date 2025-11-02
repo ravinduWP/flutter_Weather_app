@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/services/weather_service.dart';
 
@@ -16,9 +17,8 @@ class _WeatherPageState extends State<WeatherPage> {
 
   //fetch weather
   fetchWeather() async {
-    print("fetching weather...");
     String cityName = await _weatherService.getCurrentCity();
-    print("current city: $cityName");
+    
     try {
       final weather = await _weatherService.getWeather(cityName);
       setState(() {
@@ -29,6 +29,31 @@ class _WeatherPageState extends State<WeatherPage> {
     }
   }
   //weather animations
+  String getWeatherAnimation(String? mainCondition) {
+    print("mainCondition: $mainCondition");
+    if (mainCondition == null) {
+      return 'assets/sunny.json';
+    }
+    switch (mainCondition.toLowerCase()) {
+      case 'clouds':
+      case 'mist':
+      case 'haze':
+      case 'fog':
+      case 'smoke':
+      case 'dust':
+        return 'assets/cloudy.json';
+      case 'rain':
+      case 'drizzle':
+      case 'shower rain':
+        return 'assets/rainy.json';
+      case 'thunderstorm':
+        return 'assets/thunder.json';
+      case 'clear':
+        return 'assets/sunny.json';
+      default:
+        return 'assets/sunny.json';
+    }
+  }
 
   //initial state
   @override
@@ -40,15 +65,21 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[400],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //city name
             Text(_weather?.cityName ?? 'Loading city...'),
+            //animation based on weather condition
+          
+            Lottie.asset(getWeatherAnimation(_weather?.mainCondition)),
 
             //temperature
             Text('${_weather?.temperature.round()} °C'),
+            //wether condition
+            Text(_weather?.mainCondition?? 'loading...'),
           ],
         ),
       ),
