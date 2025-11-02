@@ -33,11 +33,17 @@ class WeatherService {
       desiredAccuracy: LocationAccuracy.high);
 
     //convert the location to a list of a placemark objects
+    print("Latitude: ${position.latitude}");
+    print("Longitude: ${position.longitude}");
+
     List<Placemark> placemarks = await placemarkFromCoordinates(
       position.latitude, position.longitude);
 
+    print("Placemarks only 0: ${placemarks[1]}");
     //extract the city name from the placemark 
-    String? city = placemarks[0].locality;
+
+    print("Locality: ${placemarks[1].locality}");
+    String? city = placemarks[1].locality;
 
     return city ?? '';
 
