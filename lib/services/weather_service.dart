@@ -42,8 +42,8 @@ class WeatherService {
     print("Placemarks only 0: ${placemarks[1]}");
     //extract the city name from the placemark 
 
-    print("Locality: ${placemarks[1].locality}");
-    String? city = placemarks[1].locality;
+    print("Locality: ${placemarks[1].subAdministrativeArea}");
+    String? city = placemarks[1].subAdministrativeArea;
 
     return city ?? '';
 

@@ -18,6 +18,7 @@ class _WeatherPageState extends State<WeatherPage> {
   //fetch weather
   fetchWeather() async {
     String cityName = await _weatherService.getCurrentCity();
+    print("Current City: $cityName");
     
     try {
       final weather = await _weatherService.getWeather(cityName);
@@ -41,7 +42,7 @@ class _WeatherPageState extends State<WeatherPage> {
       case 'fog':
       case 'smoke':
       case 'dust':
-        return 'assets/cloudy.json';
+        return 'assets/cloud.json';
       case 'rain':
       case 'drizzle':
       case 'shower rain':
