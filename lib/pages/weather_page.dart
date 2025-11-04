@@ -15,7 +15,7 @@ class _WeatherPageState extends State<WeatherPage> {
   final _weatherService = WeatherService("a237ace7533b29b479add0307ea90ebf");
   Weather? _weather;
 
-  //fetch weather
+  //fetch weather from api
   fetchWeather() async {
     String cityName = await _weatherService.getCurrentCity();
     print("Current City: $cityName");
@@ -29,7 +29,7 @@ class _WeatherPageState extends State<WeatherPage> {
       print('Error fetching weather: $e');
     }
   }
-  //weather animations
+  //weather animations sorting
   String getWeatherAnimation(String? mainCondition) {
     print("mainCondition: $mainCondition");
     if (mainCondition == null) {
